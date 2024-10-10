@@ -1,0 +1,79 @@
+
+/*Atividade 1*/
+SELECT * FROM VETERINARIO v 
+WHERE v.ESPECIALIDADE = 'Dermatologista';
+
+/*Atividade 2*/
+SELECT * FROM PACIENTE p
+WHERE p.IDADE BETWEEN 2 AND 5;
+
+/*Atividade 3*/
+SELECT * FROM AGENDAMENTO a
+WHERE a.DATA_HORA BETWEEN '2024-01-01' AND '2024-03-31';
+
+/*Atividade 4*/
+SELECT * FROM MEDICAMENTOS m
+WHERE m.PRECO > 25;
+
+/*Atividade 5*/
+SELECT * FROM RECEITA r
+WHERE r.DATA_EMISSAO > '2024-06-01'
+  AND r.ID_AGENDAMENTO = (SELECT a.id_agendamento
+  						  FROM AGENDAMENTO a
+  						  WHERE a.id_veterinario = (SELECT v.id_veterinario
+  						                             FROM VETERINARIO v
+  						                             WHERE v.nome ='Dr. Ana Souza'));
+  						                            
+ /*Atividade 6*/		                       
+SELECT * FROM PACIENTE p
+WHERE p.id_paciente = (SELECT t.id_tutor
+	                 FROM TUTOR t
+	                 WHERE t.nome = 'Maria Silva');
+	                
+	                
+/*Atividade 7*/        
+SELECT * FROM ITENSRECEITA i
+WHERE i.id_medicamento = (SELECT m.id_medicamento 
+						  FROM MEDICAMENTOS m
+						  WHERE m.nome = 'Anti-inflamatório Y');
+						 
+/*Atividade 9*/				 
+SELECT * FROM AGENDAMENTO a
+WHERE a.motivo = 'Exame de sangue'
+AND a.id_veterinario      =  (SELECT v.id_veterinario
+                             FROM VETERINARIO v
+                             WHERE v.nome = 'Dr.Pedro Lima')
+                             
+/*Atividade 10*/                  
+SELECT * FROM MEDICAMENTOS m
+WHERE m.preco < 50
+
+/*Atividade 11*/
+SELECT * FROM PACIENTE p
+WHERE p.peso BETWEEN 3 AND 10
+
+/*Atividade 12*/
+SELECT * FROM PACIENTE p
+WHERE p.peso > 5 AND p.ID_TUTOR = (SELECT t.ID_TUTOR
+								   FROM TUTOR t
+								   WHERE t.NOME = 'Carlos Lima')
+								   
+/*Atividade 13*/
+SELECT * FROM PACIENTE p
+WHERE p.PESO < 7
+
+
+/*Atividade 14*/
+SELECT a.ID_PACIENTE, p.NOME, p.PESO FROM AGENDAMENTO a, PACIENTE p
+WHERE a.ID_PACIENTE = p.ID_PACIENTE AND a.DATA_HORA BETWEEN '2024-04-01' AND '2024-06-30';
+
+/*Atividade 15*/
+SELECT a.DATA_HORA, p.NOME FROM AGENDAMENTO a, PACIENTE p
+WHERE a.DATA_HORA IS NULL 
+
+/*Atividade 16*/
+SELECT * FROM PACIENTE p
+WHERE p.ID_PACIENTE NOT IN (SELECT a.ID_PACIENTE 
+							 FROM AGENDAMENTO a
+							 WHERE a.DATA_HORA
+							 BETWEEN '2024-01-01' AND '2024-01-15');
